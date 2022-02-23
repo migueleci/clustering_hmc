@@ -280,10 +280,6 @@ test_df_subh
 
 # %%
 
-print(test_df_subh.to_latex(columns=["Root","Desc","Terms","Genes"], index=False))
-
-# %%
-
 def list2file(l, name):
   file = open(name, 'w')
   file.write('\n'.join([str(x) for x in l]))
@@ -301,7 +297,7 @@ for x, root in zip(test_hpt, test_r):
 
 # %%
 
-train_times = pd.DataFrame(columns=["Root","Terms","Genes","LCN","LCPN","LCL"])
+train_times = pd.DataFrame(columns=["Root","Terms","Genes","LCN","LCPN","LCL", "Global"])
 
 for j, (x, root) in tqdm(enumerate(zip(test_hpt, test_rid))):
   hgenes = np.nonzero(gene_by_go[:,root])[0]
@@ -345,7 +341,7 @@ for j, (x, root) in tqdm(enumerate(zip(test_hpt, test_rid))):
 
     level = max(level, l)
 
-  train_times.loc[j] = [hterms[0], len(x), len(hgenes), len(x)-1, parents, level]
+  train_times.loc[j] = [hterms[0], len(x), len(hgenes), len(x)-1, parents, level, 1]
 
   path = "data/{0}".format(hterms[0].replace(':',''))
   create_path(path)
@@ -358,16 +354,22 @@ train_times
 # %%
 from matplotlib import rc
 rc('font', family='serif', size=18)
-rc('text', usetex=False)
+rc('text', usetex=True)
 
-fig, ax = plt.subplots(figsize=(10,8))
-train_times[["Root","LCN","LCPN","LCL"]].plot(ax=ax, style='--o')
+fig, ax = plt.subplots(figsize=(7,6))
+train_times[["Root","LCN","LCPN","LCL","Global"]].plot(ax=ax, style='--o')
 plt.xticks(np.arange(len(train_times)), train_times.Root.tolist(), rotation=90)
 plt.grid(visible=True, axis='both', ls='--', alpha=0.5)
-plt.title('Number of iterations per local approach')
+plt.ylim(0,100)
+plt.xlabel('Sub-hierarchy')
+plt.ylabel('Number of classifiers')
+# plt.title('Number of iterations per HMC meth')
+plt.legend(labels=[r'\textit{lcn}', r'\textit{lcpn}', r'\textit{lcl}', 'global'])
 plt.tight_layout()
-plt.savefig('data/training_times.pdf', format='pdf', dpi=300)
+plt.savefig('data/training_times.pdf', format='pdf', dpi=600)
 plt.close()
+
+# %%
 
 fig, ax = plt.subplots(1,2,figsize=(16,8))
 ax[0].plot(train_times.Root, train_times.Terms, '--o')
