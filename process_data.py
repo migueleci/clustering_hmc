@@ -171,6 +171,11 @@ termList = pd.DataFrame(data, columns=["ID","tList"])
 # termList.to_csv("data/gene_term_list.csv", index=False)
 
 # %%
+
+np.nonzero(gene_by_go.sum(axis=1))[0].shape
+np.where(gene_by_go.sum(axis=0) > 200)[0].shape
+
+# %%
 #####################################
 # 2. Prepare term data for prediction
 #####################################

@@ -12,8 +12,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.model_selection import KFold
 
-from evaluate import *
-
 import shap
 
 np.seterr(divide='ignore', invalid='ignore')

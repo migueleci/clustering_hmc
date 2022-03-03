@@ -12,8 +12,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.model_selection import KFold
 
-from evaluate import *
-
 import shap
 
 np.seterr(divide='ignore', invalid='ignore')
@@ -290,7 +288,7 @@ for j, root in enumerate(root_list):
     pred_df.index = test_index
     pred_df.to_csv("predictions/lcpn/{0}_{1}.csv".format(root.replace(':',''), fold_idx))
     fold_idx += 1
-    
+
     """
     compute the performance measures per level
     """
@@ -302,7 +300,7 @@ for j, root in enumerate(root_list):
       # all classes up to the current level
       u2level += children
       idx_u2level += idx_children
-    
+
       measures = e.multiclass_classification_measures(pred[np.ix_(test_index,idx_u2level)], labels[u2level].loc[test_index])
       macro_pl[idxl].append(measures[1])
       macrow_pl[idxl].append(measures[2])
