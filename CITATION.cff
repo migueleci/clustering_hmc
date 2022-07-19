@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Node Classification"
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Miguel
+    family-names: Romero
+    email: miguelangel.romero@javerianacali.edu.co
+    affiliation: Pontificia Universidad Javeriana
+    orcid: 'https://orcid.org/0000-0002-7068-970X'
+  - given-names: Oscar
+    family-names: Ramírez
+  - given-names: Jorge
+    family-names: Finke
+  - given-names: Camilo
+    family-names: Rocha
+doi: 10.1007/s41109-022-00468-w
+date-released: 2022-03-01
+url: "https://github.com/migueleci/clustering_hmc"
